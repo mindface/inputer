@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../store/modules/reducer';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 
@@ -20,17 +19,11 @@ const Content01Card01 = (props:propsSet) => {
   const card04:Card04 = useSelector((state:{base:RootStore}) => {
     return state.base.analy.card04;
   })
-  const minDistance = 10;
-  const [category, setCategory] = useState('');
-
+  const [category, setCategory] = useState<string>('');
   const [value1, setValue1] = useState<number | number[]>(0);
   const [value2, setValue2] = useState<number | number[]>(0);
   const [value3, setValue3] = useState<number | number[]>(0);
   const [value4, setValue4] = useState<number | number[]>(0);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
-  };
 
   const handleNext = () => {
     const sendCard04 = {
@@ -59,19 +52,14 @@ const Content01Card01 = (props:propsSet) => {
       fullWidth
       sx={{ mb: 2 }}
     >
-      <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+      <InputLabel id="demo-simple-select-label">目的のラベル</InputLabel>
+      <TextField
+        id="outlined-multiline-flexible"
+        multiline
+        maxRows={4}
         value={category}
-        label="category"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>聞くこと</MenuItem>
-        <MenuItem value={20}>本</MenuItem>
-        <MenuItem value={30}>動画</MenuItem>
-        <MenuItem value={40}>動画と経験の組み合わせ</MenuItem>
-      </Select>
+        onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setCategory(e.target.value)}}
+      />
     </FormControl>
     <p className="caption">目的から計画の立案率</p>
     <Slider
@@ -84,7 +72,7 @@ const Content01Card01 = (props:propsSet) => {
     <p className="caption">実装時における計画の変更率</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
-      value={value1}
+      value={value2}
       onChange={(e,r,t) => { setValue2(r) }}
       valueLabelDisplay="auto"
       disableSwap
@@ -92,7 +80,7 @@ const Content01Card01 = (props:propsSet) => {
     <p className="caption">目的で問題を細分化したときのプロセス数</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
-      value={value2}
+      value={value3}
       onChange={(e,r,t) => { setValue3(r) }}
       valueLabelDisplay="auto"
       disableSwap
@@ -100,7 +88,7 @@ const Content01Card01 = (props:propsSet) => {
     <p className="caption">目的設定で情報収集した時間</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
-      value={value3}
+      value={value4}
       onChange={(e,r,t) => { setValue4(r) }}
       valueLabelDisplay="auto"
       disableSwap

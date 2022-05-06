@@ -40,3 +40,32 @@ export const reCard06 = {
   value1: 0,
   value2: "",
 }
+
+export const setAnalyData = [{
+  card01_category: "",
+  card01_value_s1: 0,
+  card01_value1: [0,10],
+  card01_value2: [0,10],
+  card01_value3: [0,10],
+
+  card02_ability1: "",
+  card02_value1: 0,
+  card02_value2: [0,10],
+
+  card03_category: "",
+  card03_value1: 0,
+  card03_value2: 0,
+  card03_value3: 0,
+
+  card04_category: "",
+  card04_value1: 0,
+  card04_value2: 0,
+  card04_value3: 0,
+
+  card05_value1: 0,
+  card05_value2: 0,
+  card05_value3: 0,
+
+  card06_value1: 0,
+  card06_value2: "",
+}]

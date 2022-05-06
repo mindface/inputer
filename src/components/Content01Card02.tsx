@@ -5,8 +5,7 @@ import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-
-import { Card01, Card02 } from '../models/analy'
+import { Card02 } from '../models/analy'
 
 type propsSet = {
   nextAction:() => void;
@@ -22,7 +21,6 @@ const Content01Card02 = (props:propsSet) => {
   const [ability1, setAbility1] = useState<string>("");
   const [value1, setValue1] = useState<number | number[]>(20);
   const [value2, setValue2] = useState<number[]>([20, 37]);
-  const [value3, setValue3] = useState<number[]>([20, 37]);
 
   const handleNext = () => {
     const sendCard02 = {
@@ -47,7 +45,6 @@ const Content01Card02 = (props:propsSet) => {
     let getValue:number[] = [];
     let setValue:number[] = [];
     if(setNumber === 0)getValue = value2;
-    if(setNumber === 1)getValue = value3;
     
     if (activeThumb === 0) {
       setValue = [Math.min(newValue[0], getValue[1] - minDistance), getValue[1]];
@@ -60,7 +57,6 @@ const Content01Card02 = (props:propsSet) => {
         setValue2(setValue);
         break;
       case 1:
-        setValue3(setValue);
         break;
     }
   };
@@ -98,7 +94,7 @@ const Content01Card02 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">練習で計画をベース成長可能% [{value2[0]}% - [{value2[1]}%]</p>
+    <p className="caption">練習で計画をベース成長可能% [{value2[0]}% - {value2[1]}%]</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value2}

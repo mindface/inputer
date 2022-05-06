@@ -59,15 +59,15 @@ function Header(){
         open={state}
         onClose={toggleDrawer("left", false)}
       >
-        <IconButton onClick={toggleDrawer("left", false)}>
-        <ChevronLeftIcon />
+        <IconButton sx={{ borderRadius: 0 }} onClick={toggleDrawer("left", false)}>
+          <ChevronLeftIcon />
         </IconButton>
         <div className="drawer">
           <div className="drawer__inner">
             <List>
               {pageList.map((item:{id:string,label:string}) => {
                 return (<ListItem key={item.id} button onClick={() => changePage(item.id)} >
-                <ListItemText primary={item.label} />
+                  <ListItemText primary={item.label} />
                </ListItem>)
               })
               }

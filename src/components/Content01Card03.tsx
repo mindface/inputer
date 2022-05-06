@@ -20,8 +20,7 @@ const Content01Card01 = (props:propsSet) => {
   const card03:Card03 = useSelector((state:{base:RootStore}) => {
     return state.base.analy.card03;
   })
-  const [category, setCategory] = useState('');
-
+  const [category, setCategory] = useState<string>('');
   const [value1, setValue1] = useState<number | number[]>(0);
   const [value2, setValue2] = useState<number | number[]>(0);
   const [value3, setValue3] = useState<number | number[]>(0);
@@ -55,7 +54,7 @@ const Content01Card01 = (props:propsSet) => {
       fullWidth
       sx={{ mb: 2 }}
     >
-      <InputLabel id="demo-simple-select-label">フィードバックツール</InputLabel>
+      <InputLabel id="demo-simple-select-label">過ごす時間の割合</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -63,13 +62,19 @@ const Content01Card01 = (props:propsSet) => {
         label="category"
         onChange={handleChange}
       >
-        <MenuItem value={10}>聞くこと</MenuItem>
-        <MenuItem value={20}>本</MenuItem>
-        <MenuItem value={30}>動画</MenuItem>
-        <MenuItem value={40}>動画と経験の組み合わせ</MenuItem>
+        <MenuItem value={10}>1日の活動時間の1割</MenuItem>
+        <MenuItem value={20}>1日の活動時間の2割</MenuItem>
+        <MenuItem value={30}>1日の活動時間の3割</MenuItem>
+        <MenuItem value={40}>1日の活動時間の4割</MenuItem>
+        <MenuItem value={50}>1日の活動時間の5割</MenuItem>
+        <MenuItem value={60}>1日の活動時間の6割</MenuItem>
+        <MenuItem value={70}>1日の活動時間の7割</MenuItem>
+        <MenuItem value={80}>1日の活動時間の8割</MenuItem>
+        <MenuItem value={90}>1日の活動時間の9割</MenuItem>
+        <MenuItem value={100}>1日の活動時間の10割</MenuItem>
       </Select>
     </FormControl>
-    <p className="caption">1日単位で使える時間</p>
+    <p className="caption">1日単位で使える時間 [{value1}]時間</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value1}
@@ -77,7 +82,7 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">ツールやフィードバックされる範囲</p>
+    <p className="caption">ツールやフィードバックされる回数 [{value2}]</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value2}
@@ -85,7 +90,7 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">優先順位</p>
+    <p className="caption">優先順位 [{value3}]</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value3}

@@ -1,69 +1,140 @@
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Slider from '@mui/material/Slider';
+import React, { useState,useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import AppBar from '@mui/material/AppBar';
+import Card from '@mui/material/Card';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import Slide from '@mui/material/Slide';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { TransitionProps } from '@mui/material/transitions';
+import { AppDispatch } from "../store/index";
+import { AnalyData } from "../models/analy";
+import { RootStore } from '../store/modules/reducer';
+import { getAnalyData, deleteAnalyData } from "../store/modules/data_action/analy";
 
+import Content02EditContent from "./Content02EditContent";
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Content02(){
-  const dispatch = useDispatch();
-  const minDistance = 10;
-  const [age, setAge] = React.useState('');
-  const [value1, setValue1] = React.useState<number[]>([20, 37]);
+  const dispatch:AppDispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [edit, setEditOpen] = useState(false);
+  const [editInfo, setEditInfo] = useState<AnalyData>();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+  const analyData:AnalyData[] = useSelector((state:{base:RootStore}) => {
+    return state.base.analy.setAnalies;
+  })
+
+  const handleClickDialog = () => {
+    setOpen(!open);
   };
 
-  const handleChange1 = (
-    event: Event,
-    newValue: number | number[],
-    activeThumb: number,
-  ) => {
-    if (!Array.isArray(newValue)) {
-      return;
-    }
-
-    if (activeThumb === 0) {
-      setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
-    } else {
-      setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-    }
+  const handleEditSwtich = () => {
+    setEditOpen(!edit);
   };
+
+  const handleDeleteItem = (id:number) => {
+    dispatch(deleteAnalyData(id));
+  }
+
+  const handleEditItem = (id:number) => {
+    const viweItem = analyData.filter((item:AnalyData) => item.id === id);
+    setEditInfo(viweItem[0]);
+    console.log(viweItem[0])
+    handleClickDialog();
+    handleEditSwtich();
+  }
+
+  const serchAction = async (text:string) => {
+    const APIKEY = process.env.REACT_APP_APIKEY;
+    const CX = process.env.REACT_APP_CX;
+    const params = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+    const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${text}`,params);
+    res.json().then((res) => {
+      console.log(res)
+    })
+  }
+
+  useEffect(() => {
+    dispatch(getAnalyData());
+    // serchAction("情報レベル");
+  },[]);
 
   return (
    <div className="content p-10 boxShadow">
-     <h3 className="title">content02</h3>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">parts 02</p>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-    <Box sx={{ p: 2 }}>
-      <p className="caption">parts 01</p>
-      <Slider
-        getAriaLabel={() => 'Minimum distance'}
-        value={value1}
-        onChange={handleChange1}
-        valueLabelDisplay="auto"
-        disableSwap
-      />
-    </Box>
+     <div className="content__title pb-2">
+     <h3 className="title">入力一覧</h3>
+      目的と現状の結果、リソースから検索情報への関与していきます。
+      情報へのレベライズや自分の情報に対する構造をメタ化を目指します。
+     </div>
+     <Card sx={{ minWidth: 420, p: 2 }}>
+      <List>
+      {analyData.map((item:AnalyData,index:number) => {
+        return (
+          <ListItem key={index}>
+            <div className='box w-100 pb-2'>
+              <h4 className="title pb-1 mb-1 border-b">カードラベル | {item.card04_category}</h4>
+              <Button autoFocus onClick={() => handleEditItem(item.id!)}>
+                <ModeEditIcon />
+              </Button>
+              <Button autoFocus onClick={() => handleDeleteItem(item.id!)}>
+                <DeleteOutlineIcon />
+              </Button>
+              <Button variant="outlined" onClick={handleClickDialog}>
+                Open
+              </Button>
+            </div>
+        </ListItem>)
+      })}
+      </List>
+    </Card>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClickDialog}
+        TransitionComponent={Transition}
+      > 
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClickDialog}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              編集
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        { edit && <Content02EditContent saveAction={() => {handleClickDialog()}} analyData={editInfo} /> }
+        { !edit && 
+        <div className="t">
+          検索結果の表示
+        </div>}
+      </Dialog>
    </div>
   )
 }

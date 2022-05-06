@@ -21,8 +21,7 @@ function Box(props:JSX.IntrinsicElements['mesh']) {
   const threeRef = useRef<THREE.Mesh>(null!)
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
-  useFrame((state, delta) => (threeRef.current.rotation.x += 0.01))
-  useFrame(() => {})
+  useFrame((state, delta) => (threeRef.current.rotation.x += 0.01));
   return (
     <mesh
       {...props}

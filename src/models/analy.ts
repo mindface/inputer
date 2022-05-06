@@ -54,3 +54,35 @@ export interface Card06 {
   value1: number;
   value2: string;
 }
+
+export interface AnalyData {
+  id?:number;
+  created_at?:string;
+  updated_at?:string;
+  card01_category:string;
+  card01_value_s1:number;
+  card01_value1:number[];
+  card01_value2:number[];
+  card01_value3:number[];
+
+  card02_ability1:string;
+  card02_value1:number;
+  card02_value2:number[];
+
+  card03_category:string;
+  card03_value1:number;
+  card03_value2:number;
+  card03_value3:number;
+
+  card04_category:string
+  card04_value1:number;
+  card04_value2:number;
+  card04_value3:number;
+
+  card05_value1:number;
+  card05_value2:number;
+  card05_value3:number;
+
+  card06_value1:number;
+  card06_value2:string;
+}

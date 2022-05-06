@@ -1,8 +1,8 @@
 import React from 'react';
+import { useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
-import { SelectChangeEvent } from '@mui/material/Select';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+// import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -17,6 +17,9 @@ import Content01Card03 from "./Content01Card03";
 import Content01Card04 from "./Content01Card04";
 import Content01Card05 from "./Content01Card05";
 import Content01Card06 from "./Content01Card06";
+
+import { AddAnalyData } from "../store/modules/data_action/analy";
+import { AppDispatch } from "../store/index";
 
 const steps = [
   {
@@ -43,11 +46,11 @@ const steps = [
   {
     label: "平均評価(ヒューティクス)との差",
     description: `一般論で使われる情報と自分が扱う言語情報の差を規定する`,
-
   }
 ];
 
 function Content01(){
+  const dispatch:AppDispatch = useDispatch();
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -61,6 +64,10 @@ function Content01(){
 
   const handleReset = () => {
     setActiveStep(0);
+  };
+
+  const handleSave = () => {
+    dispatch(AddAnalyData())
   };
 
   return (
@@ -80,7 +87,7 @@ function Content01(){
               {step.label}
             </StepLabel>
             <StepContent>
-              <Card sx={{ minWidth: 380, p: 2 }}>
+              <Card sx={{ minWidth: 420, p: 2 }}>
                 <Typography>{step.description}</Typography>
                 { index === 0 && <CardContent><Content01Card01 nextAction={handleNext} backAction={handleBack} /></CardContent>}
                 { index === 1 && <CardContent><Content01Card02 nextAction={handleNext} backAction={handleBack} /></CardContent>}
@@ -116,6 +123,9 @@ function Content01(){
           <Typography>全ての入力を完了しました。次は結果をご確認ください。</Typography>
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
             Reset
+          </Button>
+          <Button onClick={handleSave} sx={{ mt: 1, mr: 1 }}>
+            SAVE
           </Button>
         </Paper>
       )}

@@ -7,7 +7,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
 
-
 function Content03(){
   const dispatch = useDispatch();
   const minDistance = 10;

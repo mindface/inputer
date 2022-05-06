@@ -21,13 +21,11 @@ const Content01Card01 = (props:propsSet) => {
   const minDistance = 10;
   const [value1, setValue1] = useState<number | number[]>(0);
   const [value2, setValue2] = useState<string>("");
-  const [value3, setValue3] = useState<string>("");
 
   const handleNext = () => {
     const sendCard06 = {
       value1: value1,
       value2: value2,
-      value3: value3,
     }
     dispatch({type:'CARD06',card06:sendCard06})
     props.nextAction()
@@ -49,7 +47,7 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">一般の人がプレーする内容に対して、言語上でイメージした行動をしたときに発生するズレ</p>
+    <p className="caption">自分以外のパフォーマンスに対して、言葉上での自分の行動に発生するズレ</p>
     <FormControl fullWidth>
       <TextField
         id="outlined-multiline-flexible"

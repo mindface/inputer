@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Dispatch } from 'redux'
 import { useSelector, useDispatch } from "react-redux";
 import PartDialog, { PropsSet } from "./PartDialog";
 import Box from '@mui/material/Box';
@@ -69,11 +68,8 @@ function ContentInfo01(){
   }
 
   return (
-   <div className="content p-10 boxShadow">
-     <h3 className="title">content03</h3>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">一覧 content</p>
-    </Box>
+   <div className="content boxShadow">
+     <h3 className="title p-1">一覧</h3>
     <div style={{ display: 'flex', height: '100%' }}>
       {listItems.map((item:Posts) => {
         return (

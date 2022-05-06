@@ -51,7 +51,7 @@ const Content01Card01 = (props:propsSet) => {
     <p className="caption">事実と計画の分析</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
-      value={value1}
+      value={value2}
       onChange={(e,r,t) => { setValue2(r) }}
       valueLabelDisplay="auto"
       disableSwap
@@ -59,7 +59,7 @@ const Content01Card01 = (props:propsSet) => {
     <p className="caption">次回改修点までの実行回数</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
-      value={value2}
+      value={value3}
       onChange={(e,r,t) => { setValue3(r) }}
       valueLabelDisplay="auto"
       disableSwap

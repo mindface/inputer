@@ -21,8 +21,7 @@ const Content01Card01 = (props:propsSet) => {
     return state.base.analy.card01;
   })
   const minDistance = 10;
-  const [category, setCategory] = useState('');
-
+  const [category, setCategory] = useState<string>('');
   const [valueS1, setValueS1] = useState<number | number[]>(20);
   const [value1, setValue1] = useState<number[]>([20, 37]);
   const [value2, setValue2] = useState<number[]>([20, 37]);
@@ -93,7 +92,7 @@ const Content01Card01 = (props:propsSet) => {
       fullWidth
       sx={{ mb: 2 }}
     >
-      <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
+      <InputLabel id="demo-simple-select-label">環境の情報収集ツール</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -102,12 +101,12 @@ const Content01Card01 = (props:propsSet) => {
         onChange={handleChange}
       >
         <MenuItem value={10}>聞くこと</MenuItem>
-        <MenuItem value={20}>本</MenuItem>
-        <MenuItem value={30}>動画</MenuItem>
+        <MenuItem value={20}>本(テキスト)</MenuItem>
+        <MenuItem value={30}>動画とテキスト</MenuItem>
         <MenuItem value={40}>動画と経験の組み合わせ</MenuItem>
       </Select>
     </FormControl>
-    <p className="caption">スキル 範囲</p>
+    <p className="caption">カテゴリ内での情報収集範囲</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={valueS1}
@@ -119,7 +118,8 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">スキル 範囲</p>
+    <div className="caption border-b mb-1">調査の範囲</div>
+    <div className="text">聞くのみ[0~40]<br/>ネットで調べる[40~60]<br/>調べた情報からさらに収集[60~80]<br/>収集した情報を検証[80~]</div>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value1}
@@ -127,7 +127,8 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">スキル 範囲</p>
+    <div className="caption border-b mb-1">計画した内容を実行可能な1日の回数</div>
+    <div className="text pb-1">1週間1回[0~10]<br/>1週間2回[20~30]<br/>1週間3回[40~50]<br/>1週間4回[50~60]<br/>1週間5回[60~70]<br/>1週間6~回[80~]</div>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value2}
@@ -135,7 +136,8 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">スキル 範囲</p>
+    <div className="caption border-b mb-1">情報を質問可能な人</div>
+    <div className="text">知り合い[0~20]<br/>専門の知識保有者[40~60]<br/>専門の知識保有者の教授[60~80]<br/>専門の知識保有者の概念定義者[80~]</div>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value3}

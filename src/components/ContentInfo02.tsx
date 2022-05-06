@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -48,65 +49,67 @@ function ContentInfo02(props:PropsSet){
   };
 
   return (
-   <div className="content p-10 boxShadow">
-     <h3 className="title">content03</h3>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">title</p>
-      <FormControl fullWidth>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="title"
-          multiline
-          maxRows={4}
-          value={title}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'title')}}
-        />
-      </FormControl>
-    </Box>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">body</p>
-      <FormControl fullWidth>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="body"
-          multiline
-          rows={4}
-          value={body}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'body')}}
-          variant="standard"
-        />
-      </FormControl>
-    </Box>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">sub</p>
-      <FormControl fullWidth>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="sub"
-          multiline
-          maxRows={4}
-          value={sub}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'sub')}}
-        />
-      </FormControl>
-    </Box>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">accout</p>
-      <FormControl fullWidth>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="accout"
-          multiline
-          maxRows={4}
-          value={accout}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'accout')}}
-        />
-      </FormControl>
-    </Box>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <Button variant="contained" onClick={sendDataAction}>Contained</Button>
-    </Box>
-   </div>
+   <Card>
+    <div className="content p-10 boxShadow">
+      <h3 className="title p-1">新規登録</h3>
+      <Box sx={{ minWidth: 120, p: 2 }}>
+        <p className="caption">title</p>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="title"
+            multiline
+            maxRows={4}
+            value={title}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'title')}}
+          />
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 120, p: 2 }}>
+        <p className="caption">body</p>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="body"
+            multiline
+            rows={4}
+            value={body}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'body')}}
+            variant="standard"
+          />
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 120, p: 2 }}>
+        <p className="caption">sub</p>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="sub"
+            multiline
+            maxRows={4}
+            value={sub}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'sub')}}
+          />
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 120, p: 2 }}>
+        <p className="caption">accout</p>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="accout"
+            multiline
+            maxRows={4}
+            value={accout}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e,'accout')}}
+          />
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 120, p: 2 }}>
+        <Button variant="contained" onClick={sendDataAction}>Contained</Button>
+      </Box>
+    </div>
+   </Card>
   )
 }
 
