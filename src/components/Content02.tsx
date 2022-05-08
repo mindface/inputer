@@ -60,24 +60,8 @@ function Content02(){
     handleEditSwtich();
   }
 
-  const serchAction = async (text:string) => {
-    const APIKEY = process.env.REACT_APP_APIKEY;
-    const CX = process.env.REACT_APP_CX;
-    const params = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }
-    const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${text}`,params);
-    res.json().then((res) => {
-      console.log(res)
-    })
-  }
-
   useEffect(() => {
     dispatch(getAnalyData());
-    // serchAction("情報レベル");
   },[]);
 
   return (
@@ -113,7 +97,7 @@ function Content02(){
         open={open}
         onClose={handleClickDialog}
         TransitionComponent={Transition}
-      > 
+      >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
             <IconButton
@@ -130,7 +114,7 @@ function Content02(){
           </Toolbar>
         </AppBar>
         { edit && <Content02EditContent saveAction={() => {handleClickDialog()}} analyData={editInfo} /> }
-        { !edit && 
+        { !edit &&
         <div className="t">
           検索結果の表示
         </div>}
