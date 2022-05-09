@@ -14,17 +14,17 @@ function Content03searchrt() {
   const [searchText, setSearchText] = useState<string>('');
   const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
 
-
-  const serchAction = async (text:string) => {
+  const serchAction = async () => {
     const APIKEY = process.env.REACT_APP_APIKEY;
     const CX = process.env.REACT_APP_CX;
+
     const params = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
     }
-    const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${text}`,params);
+    const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${searchText}`,params);
     res.json().then((res) => {
       console.log(res)
     })
@@ -67,7 +67,7 @@ function Content03searchrt() {
       <Button
         variant="contained"
         sx={{ mt: 1, mr: 1 }}
-        onClick={handleClickOpen('paper')}>実行</Button>
+        onClick={serchAction}>実行</Button>
       <Dialog
         open={open}
         onClose={handleClose}

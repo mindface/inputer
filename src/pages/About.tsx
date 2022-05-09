@@ -1,12 +1,12 @@
 import React from 'react';
-import ContentThree from "../components/ContentThree";
+import FlowSection from "../components/FlowSection";
 
-function Home(){
+function About(){
  return (
    <div className="content about">
-     <ContentThree />
+     <FlowSection />
    </div>
  )
 }
 
-export default Home;
+export default About;
