@@ -19,7 +19,7 @@ const Content01Card01 = (props:propsSet) => {
   const dispatch = useDispatch();
   const card01:Card01 = useSelector((state:{base:RootStore}) => {
     return state.base.analy.card01;
-  })
+  });
   const minDistance = 10;
   const [category, setCategory] = useState<string>('');
   const [valueS1, setValueS1] = useState<number | number[]>(20);

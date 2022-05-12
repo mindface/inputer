@@ -73,7 +73,7 @@ function Content01(){
   return (
    <div className="content p-10 boxShadow">
      <h3 className="title">順番に入力してください。</h3>
-    <Box sx={{ maxWidth: 400 }}>
+    <Box sx={{ maxWidth: 400, pb: 8 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
@@ -95,24 +95,6 @@ function Content01(){
                 { index === 3 && <CardContent><Content01Card04 nextAction={handleNext} backAction={handleBack} /></CardContent>}
                 { index === 4 && <CardContent><Content01Card05 nextAction={handleNext} backAction={handleBack} /></CardContent>}
                 { index === 5 && <CardContent><Content01Card06 nextAction={handleNext} backAction={handleBack} /></CardContent>}
-                {/* <CardActions>
-                  <div>
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                    </Button>
-                    <Button
-                      disabled={index === 0}
-                      onClick={handleBack}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      Back
-                    </Button>
-                  </div>
-                </CardActions> */}
               </Card>
             </StepContent>
           </Step>

@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { styled } from '@mui/system';
 import ContentFlowStep from "./ContentFlowStep";
 
 type propsSet = {
   phase:number;
 }
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const OuterComponent = styled('div')({
+  width: '100%%',
+  p: 6,
+  color: 'white',
+});
 
-function ContentFlow01(props:propsSet) {
+
+function ContentFlow(props:propsSet) {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
+
+  const [steps, setSteps] = useState<string[]>([]);
+
+  useEffect(() => {
+    if(props.phase === 0) setSteps(['計画', '実行', '目的を達成 ']);
+    if(props.phase === 1) setSteps(['計画', '実行', 'フィードバック', '調整モデル', '目的に対する実行評価']);
+    if(props.phase === 2) setSteps(['計画', '実行', '観察と実行の繰り返し', '調整方法で言葉と結果を調整', 'フィードバック']);
+  },[props.phase])
 
   const totalSteps = () => {
     return steps.length;
@@ -66,8 +79,13 @@ function ContentFlow01(props:propsSet) {
     setCompleted({});
   };
 
+  const stepClear = () => {
+    setCompleted({});
+  }
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', overflow: 'scroll'}}>
+      <OuterComponent>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -90,38 +108,43 @@ function ContentFlow01(props:propsSet) {
           </React.Fragment>
         ) : (
           <React.Fragment>
+            
             <ContentFlowStep phase={props.phase} viewnumber={activeStep} />
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
-                color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                sx={{ mr: 1 }}
               >
                 Back
               </Button>
               <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
-                Next
+                <Button onClick={handleNext} sx={{ mr: 1 }}>
+                  Next
+                </Button>
+            </Box>
+            <Box sx={{ flex: '1 1 auto' }} >
+              <Button onClick={stepClear} sx={{ mr: 1 }}>
+                Step Reset
               </Button>
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                    Step {activeStep + 1} already completed
+                    Step {activeStep + 1} すでにクリア
                   </Typography>
                 ) : (
                   <Button onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1
                       ? 'Finish'
-                      : 'Complete Step'}
+                      : 'ステップをクリア済みにする'}
                   </Button>
                 ))}
             </Box>
           </React.Fragment>
         )}
       </div>
+      </OuterComponent>
     </Box>
   );
 }
 
-export default ContentFlow01
+export default ContentFlow

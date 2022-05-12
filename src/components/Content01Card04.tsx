@@ -18,7 +18,7 @@ const Content01Card01 = (props:propsSet) => {
   const dispatch = useDispatch();
   const card04:Card04 = useSelector((state:{base:RootStore}) => {
     return state.base.analy.card04;
-  })
+  });
   const [category, setCategory] = useState<string>('');
   const [value1, setValue1] = useState<number | number[]>(0);
   const [value2, setValue2] = useState<number | number[]>(0);

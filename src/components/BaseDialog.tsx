@@ -10,7 +10,7 @@ import { Posts } from '../models/Posts';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { AppDispatch } from "../store/index";
-import { AddPostData, UpdatePostData } from "../store/modules/data_action/post";
+import { UpdatePostData } from "../store/modules/data_action/post";
 
 export type dialogPropsSet = {
   dialogAction:(post:Posts) => void;

@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
-import { AppDispatch } from "../store/index";
 
 function ContentInfo03(){
-  const dispatch:AppDispatch = useDispatch();
   const minDistance = 10;
   const [age, setAge] = useState('');
   const [value1, setValue1] = useState<number[]>([20, 37]);
@@ -37,33 +34,33 @@ function ContentInfo03(){
   return (
    <div className="content p-10 boxShadow">
      <h3 className="title">content03</h3>
-    <Box sx={{ minWidth: 120, p: 2 }}>
-      <p className="caption">parts 02</p>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-    <Box sx={{ p: 2 }}>
-      <p className="caption">parts 01</p>
-      <Slider
-        getAriaLabel={() => 'Minimum distance'}
-        value={value1}
-        onChange={handleChange1}
-        valueLabelDisplay="auto"
-        disableSwap
-      />
-    </Box>
+     <Box sx={{ minWidth: 120, p: 2 }}>
+       <p className="caption">parts 02</p>
+       <FormControl fullWidth>
+         <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
+         <Select
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={age}
+           label="Age"
+           onChange={handleChange}
+         >
+           <MenuItem value={10}>Ten</MenuItem>
+           <MenuItem value={20}>Twenty</MenuItem>
+           <MenuItem value={30}>Thirty</MenuItem>
+         </Select>
+       </FormControl>
+     </Box>
+     <Box sx={{ p: 2 }}>
+       <p className="caption">parts 01</p>
+       <Slider
+         getAriaLabel={() => 'Minimum distance'}
+         value={value1}
+         onChange={handleChange1}
+         valueLabelDisplay="auto"
+         disableSwap
+       />
+     </Box>
    </div>
   )
 }

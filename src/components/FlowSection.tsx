@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import ContentFlow01 from "./ContentFlow01";
-import ContentInfo02 from "./ContentInfo02";
-import ContentInfo03 from "./ContentInfo03";
+import Typography from '@mui/material/Typography';
+import ContentFlow from "./ContentFlow";
 
 function FlowSection(){
   const [tab, setTab] = useState(0);
@@ -16,16 +15,16 @@ function FlowSection(){
   return (
    <section className="section p-10 boxShadow">
     <Box sx={{ p: 2 }}>
+      <Typography>問題解決できない場合レベル階層が深くなります。</Typography>
       <Tabs value={tab} onChange={handleChange}>
-        <Tab label="Level 01" />
-        <Tab label="Level 02" />
-        <Tab label="Level 03" />
+        <Tab label="フェーズ 01" />
+        <Tab label="フェーズ 02" />
+        <Tab label="フェーズ 03" />
       </Tabs>
     </Box>
-    {tab === 0 && <ContentFlow01 phase={tab} />}
-    {tab === 1 && <ContentInfo02 tabChange={() => setTab(0)} />}
-    {tab === 2 && <ContentInfo03 />}
-
+    <Box sx={{ width: '75%', m: 'auto', p: 2 }}>
+      <ContentFlow phase={tab} />
+    </Box>
    </section>
   )
 }
