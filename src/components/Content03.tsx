@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { Content03chart } from "./Content03chart";
 import Content03searchrt from "./Content03searchrt";
 

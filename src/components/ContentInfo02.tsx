@@ -43,9 +43,10 @@ function ContentInfo02(props:PropsSet){
       sub: sub,
       accout: accout,
     };
-    dispatch(AddPostData(sendData)).then(() => {
-      props.tabChange();
-    })
+    const res = dispatch(AddPostData(sendData));
+    props.tabChange();
+    
+    // if(res) props.tabChange();
   };
 
   return (
@@ -53,11 +54,10 @@ function ContentInfo02(props:PropsSet){
     <div className="content p-10 boxShadow">
       <h3 className="title p-1">新規登録</h3>
       <Box sx={{ minWidth: 120, p: 2 }}>
-        <p className="caption">title</p>
         <FormControl fullWidth>
           <TextField
             id="outlined-multiline-flexible"
-            label="title"
+            label="タイトル"
             multiline
             maxRows={4}
             value={title}
@@ -66,11 +66,10 @@ function ContentInfo02(props:PropsSet){
         </FormControl>
       </Box>
       <Box sx={{ minWidth: 120, p: 2 }}>
-        <p className="caption">body</p>
         <FormControl fullWidth>
           <TextField
             id="outlined-multiline-flexible"
-            label="body"
+            label="テキスト"
             multiline
             rows={4}
             value={body}
@@ -80,11 +79,10 @@ function ContentInfo02(props:PropsSet){
         </FormControl>
       </Box>
       <Box sx={{ minWidth: 120, p: 2 }}>
-        <p className="caption">sub</p>
         <FormControl fullWidth>
           <TextField
             id="outlined-multiline-flexible"
-            label="sub"
+            label="詳細の説明"
             multiline
             maxRows={4}
             value={sub}
@@ -93,11 +91,10 @@ function ContentInfo02(props:PropsSet){
         </FormControl>
       </Box>
       <Box sx={{ minWidth: 120, p: 2 }}>
-        <p className="caption">accout</p>
         <FormControl fullWidth>
           <TextField
             id="outlined-multiline-flexible"
-            label="accout"
+            label="アカウント"
             multiline
             maxRows={4}
             value={accout}

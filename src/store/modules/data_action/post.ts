@@ -76,10 +76,8 @@ export const postFetchDataFailure = (err: string) : PostActionFailure => {
   }
 }
 
-
 export const AddPostData = (sendData:SendPosts) => {
-    return new Promise<void>( (resolve,eject) => {
-      return async (dispatch:Dispatch<AnyAction>) => {
+    return async (dispatch:Dispatch<AnyAction>) => {
       dispatch(postFetchDataRequest())
       const params:object = {
         method: 'POST',
@@ -95,16 +93,13 @@ export const AddPostData = (sendData:SendPosts) => {
          res.json().then((res) => {
           console.log(res)
           dispatch<any>(getPostData())
-          resolve();
          })
       }
       catch (err) {
-        eject();
         console.log(err)
         //  return dispatch(postFetchDataFailure(err))
       }
-    }
-  })
+  }
 }
 
 export const UpdatePostData = (sendData:Posts) => {

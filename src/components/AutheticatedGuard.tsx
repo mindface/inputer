@@ -3,9 +3,6 @@ import {  } from "react-router-dom";
 
 
 const PartDialog =(() => {
-
-
-  
   return (
    <div className="dialog-box">
     

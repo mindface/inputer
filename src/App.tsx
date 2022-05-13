@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
+import { Routes, Route } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Info from "./pages/Info";
@@ -27,11 +27,17 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={user.id === 0 ?<Layout><Login /></Layout> : <Navigate to="/" replace />} />
+        {/* <Route path="/login" element={user.id === 0 ?<Layout><Login /></Layout> : <Navigate to="/" replace />} />
         <Route path="/" element={user.id !== 0 ?<Layout><Home /></Layout>:<Navigate to="/login" replace />} />
         <Route path="/" element={user.id !== 0 ?<Layout><Home /></Layout>:<Navigate to="/login" replace />} />
         <Route path="/about" element={user.id !== 0 ?<Layout><About /></Layout>:<Navigate to="/login" replace />} />
-        <Route path="/info" element={user.id !== 0 ?<Layout><Info /></Layout>:<Navigate to="/login" replace />} />
+        <Route path="/info" element={user.id !== 0 ?<Layout><Info /></Layout>:<Navigate to="/login" replace />} /> */}
+
+        <Route path="/login" element={<Layout><Login /></Layout>} />
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/info" element={<Layout><Info /></Layout>} />
       </Routes>
     </>
   );

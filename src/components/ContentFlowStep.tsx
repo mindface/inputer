@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 import flowStep01 from "../json/flowStep01.json";
 import flowStep02 from "../json/flowStep02.json";
 import flowStep03 from "../json/flowStep03.json";
+import flowStep04 from "../json/flowStep04.json";
 
 type propsSet = {
   viewnumber:number;
@@ -21,12 +22,19 @@ const OuterComponent = styled('div')({
 });
 
 function ContentFlowStep(props:propsSet) {
+
   const [info,setInfo] = useState<{id:number,info:string,disc:string}>({"id":0,"info":"","disc":""})
 
   useEffect(() => {
     if(props.phase === 0) setInfo(flowStep01[props.viewnumber]);
     if(props.phase === 1) setInfo(flowStep02[props.viewnumber]);
-    if(props.phase === 2) setInfo(flowStep03[props.viewnumber]);
+    if(props.phase === 2 ||
+      props.phase === 3 ||
+      props.phase === 4
+      ) setInfo(flowStep03[props.viewnumber]);
+    if(props.phase === 5 ||
+      props.phase === 6 ||
+      props.phase === 8) setInfo(flowStep04[props.viewnumber]);
   },[props.viewnumber,props.phase]);
 
   return (

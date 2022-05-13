@@ -28,9 +28,15 @@ function ContentFlow(props:propsSet) {
   const [steps, setSteps] = useState<string[]>([]);
 
   useEffect(() => {
-    if(props.phase === 0) setSteps(['計画', '実行', '目的を達成 ']);
+    if(props.phase === 0) setSteps(['計画', '実行', '目的を達成']);
     if(props.phase === 1) setSteps(['計画', '実行', 'フィードバック', '調整モデル', '目的に対する実行評価']);
     if(props.phase === 2) setSteps(['計画', '実行', '観察と実行の繰り返し', '調整方法で言葉と結果を調整', 'フィードバック']);
+    if(props.phase === 3) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価']);
+    if(props.phase === 4) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'g06', 'r06']);
+    if(props.phase === 5) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'a07', 'f07', 'fe07']);
+    if(props.phase === 6) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'e08', 'w08', 'ew08', 'g08']);
+    console.log(props.phase)
+    setActiveStep(0);
   },[props.phase])
 
   const totalSteps = () => {
@@ -108,7 +114,6 @@ function ContentFlow(props:propsSet) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            
             <ContentFlowStep phase={props.phase} viewnumber={activeStep} />
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button

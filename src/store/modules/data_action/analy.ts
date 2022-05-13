@@ -1,6 +1,5 @@
 
 import { Action, Dispatch, AnyAction } from 'redux'
-import { Posts, SendPosts } from '../../../models/Posts'
 import { Card01, Card02, Card03, Card04, Card05, Card06, AnalyData } from '../../../models/analy'
 import { reCard01, reCard02, reCard03 , reCard04, reCard05, reCard06, setAnalyData } from "./analySetData";
 
@@ -255,7 +254,6 @@ export const deleteAnalyData = (id:number) => {
     try {
        const res = await fetch(`http://localhost:3001/api/v1/analy`,params);
        res.json().then((res) => {
-        console.log(res)
         dispatch<any>(getAnalyData())
        })
     }
