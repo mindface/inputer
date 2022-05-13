@@ -20,7 +20,7 @@ function FormSection(){
       <Tabs value={tab} onChange={handleChange}>
         <Tab label="一覧" />
         <Tab label="追加" />
-        <Tab label="削除" />
+        <Tab label="info" />
       </Tabs>
     </Box>
     {tab === 0 && <ContentInfo01 />}
