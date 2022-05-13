@@ -1,11 +1,15 @@
 
-import { Action, Dispatch, AnyAction } from 'redux'
-import { User, GetUser } from '../../../models/users'
+import { Action } from 'redux'
+import { FetchApi } from "../../../lib/fetch-api";
+import { User, GetUser, GetFetchUser } from '../../../models/users'
+import { AppDispatch } from "../../index";
 
 export const FETCH_USER_DATA_REQUEST = 'FETCH_USER_DATA_REQUEST'
 export const FETCH_USER_DATA_SUCCESS = 'FETCH_USER_DATA_SUCCESS'
 export const FETCH_USERS_DATA_SUCCESS = 'FETCH_USERS_DATA_SUCCESS'
 export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE'
+
+export const fetchApi = new FetchApi();
 
 export interface UserState {
   users: User[],
@@ -98,21 +102,11 @@ export const userFetchDataFailure = (err: string) : UserActionFailure => {
 }
 
 export const getUserData = (token:string) => {
-  return async (dispatch:Dispatch<AnyAction>) => {
-      console.log(token)
-      const params:object = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':`Bearer ${token}`
-      },
-    }
+  return async (dispatch:AppDispatch) => {
     try {
-      const res = await fetch("http://localhost:3001/api/show_user", params);
-      res.json().then((res) => {
-        const user = res.user;
-        dispatch<any>(userFetchDataSuccess({id:user.id,email:user.email,name: user.name}))
-      })
+      const res = await fetchApi.GetFetch<{user:GetFetchUser}>("http://localhost:3001/api/show_user", token);
+      const user = await res.user;
+      dispatch(userFetchDataSuccess({id:user.id,email:user.email,name: user.name}))
     }
     catch (err) {
       console.log(err)
@@ -123,28 +117,17 @@ export const getUserData = (token:string) => {
 
 // curl -i -X POST -H "Content-Type: application/json" -d '{"email":"test@dddd.com", "password":"dddd123"}' localhost:3001/api/sign_in
 export const loginData = (sendData:User) => {
-    return async (dispatch:Dispatch<AnyAction>) => {
-    dispatch(userFetchDataRequest())
-    const params:object = {
-      method: 'POST',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(sendData) 
-    }
-    try {
-       const res = await fetch("http://localhost:3001/api/sign_in", params);
-       res.json().then((res) => {
+    return async (dispatch:AppDispatch) => {
+      dispatch(userFetchDataRequest())
+      try {
+        const res = await fetchApi.PostFetch<{email:string,password:string}>("http://localhost:3001/api/sign_in", sendData);
         localStorage.setItem('token', res.token);
-        dispatch<any>(getUserData(res.token));
-        // dispatch<any>(userFetchDataSuccess())
-       })
-    }
-    catch (err) {
-      console.log(err)
-      //  return dispatch(postFetchDataFailure(err))
-    }
+        dispatch(getUserData(res.token));
+      }
+      catch (err) {
+        console.log(err)
+        //  return dispatch(postFetchDataFailure(err))
+      }
   }
 }
 

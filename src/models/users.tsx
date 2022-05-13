@@ -9,3 +9,12 @@ export interface GetUser {
   name: string;
   email: string;
 }
+
+export interface GetFetchUser {
+  created_at: string;
+  email: string;
+  id:number;
+  name: string;
+  password_digest: string;
+  updated_at: string;
+}
