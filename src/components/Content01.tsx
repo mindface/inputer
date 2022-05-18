@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -52,7 +52,7 @@ const steps = [
 function Content01(){
   const dispatch:AppDispatch = useDispatch();
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

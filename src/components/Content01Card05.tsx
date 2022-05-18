@@ -40,7 +40,7 @@ const Content01Card01 = (props:propsSet) => {
 
   return (
    <div className="content p-10 boxShadow">
-    <p className="caption">検証方法の範囲</p>
+    <p className="caption">検証して目的達成数</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value1}

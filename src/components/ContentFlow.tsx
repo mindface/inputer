@@ -18,7 +18,6 @@ const OuterComponent = styled('div')({
   color: 'white',
 });
 
-
 function ContentFlow(props:propsSet) {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{
@@ -35,8 +34,8 @@ function ContentFlow(props:propsSet) {
     if(props.phase === 4) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'g06', 'r06']);
     if(props.phase === 5) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'a07', 'f07', 'fe07']);
     if(props.phase === 6) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'e08', 'w08', 'ew08', 'g08']);
-    console.log(props.phase)
     setActiveStep(0);
+    setCompleted({});
   },[props.phase])
 
   const totalSteps = () => {

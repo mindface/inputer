@@ -90,10 +90,11 @@ const Content01Card01 = (props:propsSet) => {
       valueLabelDisplay="auto"
       disableSwap
     />
-    <p className="caption">優先順位 [{value3}]</p>
+    <p className="caption">これまでに使った日数 [{value3}]</p>
     <Slider
       getAriaLabel={() => 'Minimum distance'}
       value={value3}
+      max={1000}
       onChange={(e,r,t) => { setValue3(r) }}
       valueLabelDisplay="auto"
       disableSwap

@@ -19,7 +19,8 @@ import { UpdateAnalyData } from "../store/modules/data_action/analy";
 
 type propsSet = {
   analyData?:AnalyData,
-  saveAction: () => void
+  saveAction: () => void,
+  closeAction: () => void,
 }
 
 function Content02EditContent(props:propsSet){
@@ -241,7 +242,7 @@ function Content02EditContent(props:propsSet){
             valueLabelDisplay="auto"
             disableSwap
           />
-          <p className="caption">優先順位 [{editInfo.card03_value3}]</p>
+          <p className="caption">これまでに使った日数 [{editInfo.card03_value3}]</p>
           <Slider
             getAriaLabel={() => 'Minimum distance'}
             value={editInfo.card03_value3}
@@ -377,7 +378,7 @@ function Content02EditContent(props:propsSet){
     </Accordion>
     <Box sx={{ p: 2, border: '1px solid grey' }}>
       <div className="btn">
-      <Button autoFocus onClick={() => props.saveAction()}>close</Button>
+      <Button autoFocus onClick={() => props.closeAction()}>close</Button>
       <Button autoFocus onClick={() => saveAction()}>save</Button>
       </div>
     </Box>

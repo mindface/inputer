@@ -44,6 +44,10 @@ function Content02(){
     setOpen(!open);
   };
 
+  const handleClosekDialog = () => {
+    setOpen(false);
+  };
+
   const handleEditSwtich = () => {
     setEditOpen(!edit);
   };
@@ -113,7 +117,11 @@ function Content02(){
             </Typography>
           </Toolbar>
         </AppBar>
-        { edit && <Content02EditContent saveAction={() => {handleClickDialog()}} analyData={editInfo} /> }
+        { edit && <Content02EditContent
+                    saveAction={() => {handleClickDialog()}}
+                    closeAction={() => {handleClosekDialog()}}
+                    analyData={editInfo}
+                  /> }
         { !edit &&
         <div className="t">
           検索結果の表示
