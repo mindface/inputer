@@ -1,37 +1,37 @@
-import React, { useEffect, useState, useRef } from 'react';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import ViewListIcon from '@mui/icons-material/ViewList';
+import React, { useEffect, useState, useRef } from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import ViewListIcon from "@mui/icons-material/ViewList";
 import { AnalyData } from "../models/analy";
 import setText01 from "../json/setText01.json";
 import setText02 from "../json/setText02.json";
-import { type } from 'os';
+import { type } from "os";
 
 type propsSet = {
-  analyData?:AnalyData,
-}
+  analyData?: AnalyData;
+};
 
 type textJson = {
   id: number;
   text: string;
   disc: string;
-}
+};
 
-function Content03searchrt(props:propsSet) {
+function Content03searchrt(props: propsSet) {
   const [open, setOpen] = useState(false);
-  const [searchText, setSearchText] = useState<string>('');
-  const [selectJsonNumber, setSelectJsonNumber] = useState<string>('1');
-  const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
+  const [searchText, setSearchText] = useState<string>("");
+  const [selectJsonNumber, setSelectJsonNumber] = useState<string>("1");
+  const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
 
-  const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
+  const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
     setOpen(true);
     setScroll(scrollType);
   };
@@ -45,17 +45,20 @@ function Content03searchrt(props:propsSet) {
     const CX = process.env.REACT_APP_CX;
 
     const params = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-    }
-    const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${searchText}`,params);
+    };
+    const res = await fetch(
+      `https://www.googleapis.com/customsearch/v1?key=${APIKEY}&cx=${CX}&q=${searchText}`,
+      params
+    );
     res.json().then((res) => {
-      console.log(res)
-    })
-    handleClickOpen('paper');
-  }
+      console.log(res);
+    });
+    handleClickOpen("paper");
+  };
 
   const descriptionElementRef = useRef<HTMLElement>(null);
 
@@ -68,22 +71,20 @@ function Content03searchrt(props:propsSet) {
     }
   }, [open]);
 
-  const setJson = (number:string) => {
-    let list:(textJson[]|[]) = [];
+  const setJson = (number: string) => {
+    let list: textJson[] | [] = [];
     switch (number) {
-      case '1':
+      case "1":
         list = setText01;
         break;
-      case '2':
+      case "2":
         list = setText02;
         break;
     }
     return list;
-  }
+  };
 
-  useEffect(() => {
-
-  },[selectJsonNumber])
+  useEffect(() => {}, [selectJsonNumber]);
 
   // useEffect(() => {
   //   console.log(props.analyData)
@@ -91,17 +92,16 @@ function Content03searchrt(props:propsSet) {
 
   return (
     <div className="search-box">
-     <h3 className="title p-1">検索文字列</h3>
-      <FormControl
-        fullWidth
-        sx={{ mb: 2 }}
-      >
+      <h3 className="title p-1">検索文字列</h3>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
           id="outlined-multiline-flexible"
           multiline
           maxRows={4}
           value={searchText}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setSearchText(e.target.value)}}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchText(e.target.value);
+          }}
         />
       </FormControl>
       <RadioGroup
@@ -109,16 +109,24 @@ function Content03searchrt(props:propsSet) {
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
         value={selectJsonNumber}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>, value: string) => {setSelectJsonNumber(value)}}
+        onChange={(
+          event: React.ChangeEvent<HTMLInputElement>,
+          value: string
+        ) => {
+          setSelectJsonNumber(value);
+        }}
       >
         <FormControlLabel value="1" control={<Radio />} label="神経系" />
         <FormControlLabel value="2" control={<Radio />} label="記憶系" />
       </RadioGroup>
-      <Button
-        variant="contained"
-        sx={{ mt: 1, mr: 1 }}
-        onClick={serchAction}>実行</Button>
-      {searchText !== '' && <Button onClick={handleClickOpen('paper')}><ViewListIcon /></Button>}
+      <Button variant="contained" sx={{ mt: 1, mr: 1 }} onClick={serchAction}>
+        実行
+      </Button>
+      {searchText !== "" && (
+        <Button onClick={handleClickOpen("paper")}>
+          <ViewListIcon />
+        </Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -127,12 +135,20 @@ function Content03searchrt(props:propsSet) {
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">検索文字列</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
-            {setJson(selectJsonNumber).map((item:textJson) => {
-              return (
-                <p key={item.id}><a href={`https://www.google.com/search?q=${searchText}${item.text}`} target="_branck">
-                {searchText}{item.text}</a></p>)
-            })}
+        <DialogContent dividers={scroll === "paper"}>
+          {setJson(selectJsonNumber).map((item: textJson) => {
+            return (
+              <p key={item.id}>
+                <a
+                  href={`https://www.google.com/search?q=${searchText}${item.text}`}
+                  target="_branck"
+                >
+                  {searchText}
+                  {item.text}
+                </a>
+              </p>
+            );
+          })}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

@@ -1,19 +1,19 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Info from "./pages/Info";
 import Login from "./pages/Login";
 import Layout from "./layout/index";
-import { RootStore } from './store/modules/reducer';
+import { RootStore } from "./store/modules/reducer";
 // import { AppDispatch } from "./store/index";
 // import { getUserData } from "./store/modules/data_action/user";
-import "./index.css"
+import "./index.css";
 
 function App() {
   // const dispatch:AppDispatch = useDispatch();
-  const user = useSelector((state:{base:RootStore}) => {
+  const user = useSelector((state: { base: RootStore }) => {
     return state.base.user.user;
   });
 
@@ -33,11 +33,46 @@ function App() {
         <Route path="/about" element={user.id !== 0 ?<Layout><About /></Layout>:<Navigate to="/login" replace />} />
         <Route path="/info" element={user.id !== 0 ?<Layout><Info /></Layout>:<Navigate to="/login" replace />} /> */}
 
-        <Route path="/login" element={<Layout><Login /></Layout>} />
-        <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/about" element={<Layout><About /></Layout>} />
-        <Route path="/info" element={<Layout><Info /></Layout>} />
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <Login />
+            </Layout>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/info"
+          element={
+            <Layout>
+              <Info />
+            </Layout>
+          }
+        />
       </Routes>
     </>
   );

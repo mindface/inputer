@@ -13,7 +13,7 @@ export interface GetUser {
 export interface GetFetchUser {
   created_at: string;
   email: string;
-  id:number;
+  id: number;
   name: string;
   password_digest: string;
   updated_at: string;

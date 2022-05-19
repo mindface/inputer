@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/system';
+import React, { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/system";
 import ContentFlowStep from "./ContentFlowStep";
 
 type propsSet = {
-  phase:number;
-}
+  phase: number;
+};
 
-const OuterComponent = styled('div')({
-  width: '100%%',
+const OuterComponent = styled("div")({
+  width: "100%%",
   p: 6,
-  color: 'white',
+  color: "white",
 });
 
-function ContentFlow(props:propsSet) {
+function ContentFlow(props: propsSet) {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
@@ -27,16 +27,67 @@ function ContentFlow(props:propsSet) {
   const [steps, setSteps] = useState<string[]>([]);
 
   useEffect(() => {
-    if(props.phase === 0) setSteps(['計画', '実行', '目的を達成']);
-    if(props.phase === 1) setSteps(['計画', '実行', 'フィードバック', '調整モデル', '目的に対する実行評価']);
-    if(props.phase === 2) setSteps(['計画', '実行', '観察と実行の繰り返し', '調整方法で言葉と結果を調整', 'フィードバック']);
-    if(props.phase === 3) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価']);
-    if(props.phase === 4) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'g06', 'r06']);
-    if(props.phase === 5) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'a07', 'f07', 'fe07']);
-    if(props.phase === 6) setSteps(['方法をメタ認知', '評価を階層化', '変更と評価の範囲を定義', '定義内容を言語化', '目的に対して評価', 'e08', 'w08', 'ew08', 'g08']);
+    if (props.phase === 0) setSteps(["計画", "実行", "目的を達成"]);
+    if (props.phase === 1)
+      setSteps([
+        "計画",
+        "実行",
+        "フィードバック",
+        "調整モデル",
+        "目的に対する実行評価",
+      ]);
+    if (props.phase === 2)
+      setSteps([
+        "計画",
+        "実行",
+        "観察と実行の繰り返し",
+        "調整方法で言葉と結果を調整",
+        "フィードバック",
+      ]);
+    if (props.phase === 3)
+      setSteps([
+        "方法をメタ認知",
+        "評価を階層化",
+        "変更と評価の範囲を定義",
+        "定義内容を言語化",
+        "目的に対して評価",
+      ]);
+    if (props.phase === 4)
+      setSteps([
+        "方法をメタ認知",
+        "評価を階層化",
+        "変更と評価の範囲を定義",
+        "定義内容を言語化",
+        "目的に対して評価",
+        "g06",
+        "r06",
+      ]);
+    if (props.phase === 5)
+      setSteps([
+        "方法をメタ認知",
+        "評価を階層化",
+        "変更と評価の範囲を定義",
+        "定義内容を言語化",
+        "目的に対して評価",
+        "a07",
+        "f07",
+        "fe07",
+      ]);
+    if (props.phase === 6)
+      setSteps([
+        "方法をメタ認知",
+        "評価を階層化",
+        "変更と評価の範囲を定義",
+        "定義内容を言語化",
+        "目的に対して評価",
+        "e08",
+        "w08",
+        "ew08",
+        "g08",
+      ]);
     setActiveStep(0);
     setCompleted({});
-  },[props.phase])
+  }, [props.phase]);
 
   const totalSteps = () => {
     return steps.length;
@@ -86,69 +137,69 @@ function ContentFlow(props:propsSet) {
 
   const stepClear = () => {
     setCompleted({});
-  }
+  };
 
   return (
-    <Box sx={{ width: '100%', overflow: 'scroll'}}>
+    <Box sx={{ width: "100%", overflow: "scroll" }}>
       <OuterComponent>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {allStepsCompleted() ? (
-          <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleReset}>Reset</Button>
-            </Box>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <ContentFlowStep phase={props.phase} viewnumber={activeStep} />
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
+        <Stepper nonLinear activeStep={activeStep}>
+          {steps.map((label, index) => (
+            <Step key={label} completed={completed[index]}>
+              <StepButton color="inherit" onClick={handleStep(index)}>
+                {label}
+              </StepButton>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          {allStepsCompleted() ? (
+            <React.Fragment>
+              <Typography sx={{ mt: 2, mb: 1 }}>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Box sx={{ flex: "1 1 auto" }} />
+                <Button onClick={handleReset}>Reset</Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <ContentFlowStep phase={props.phase} viewnumber={activeStep} />
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Button disabled={activeStep === 0} onClick={handleBack}>
+                  Back
+                </Button>
+                <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} sx={{ mr: 1 }}>
                   Next
                 </Button>
-            </Box>
-            <Box sx={{ flex: '1 1 auto' }} >
-              <Button onClick={stepClear} sx={{ mr: 1 }}>
-                Step Reset
-              </Button>
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                    Step {activeStep + 1} すでにクリア
-                  </Typography>
-                ) : (
-                  <Button onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1
-                      ? 'Finish'
-                      : 'ステップをクリア済みにする'}
-                  </Button>
-                ))}
-            </Box>
-          </React.Fragment>
-        )}
-      </div>
+              </Box>
+              <Box sx={{ flex: "1 1 auto" }}>
+                <Button onClick={stepClear} sx={{ mr: 1 }}>
+                  Step Reset
+                </Button>
+                {activeStep !== steps.length &&
+                  (completed[activeStep] ? (
+                    <Typography
+                      variant="caption"
+                      sx={{ display: "inline-block" }}
+                    >
+                      Step {activeStep + 1} すでにクリア
+                    </Typography>
+                  ) : (
+                    <Button onClick={handleComplete}>
+                      {completedSteps() === totalSteps() - 1
+                        ? "Finish"
+                        : "ステップをクリア済みにする"}
+                    </Button>
+                  ))}
+              </Box>
+            </React.Fragment>
+          )}
+        </div>
       </OuterComponent>
     </Box>
   );
 }
 
-export default ContentFlow
+export default ContentFlow;

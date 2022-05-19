@@ -1,10 +1,10 @@
-
-export interface Modals {
-  modalView: false,
-  viewId: number,
-  selectId: number,
-  isFetching: boolean,
-  isloading: boolean
+export interface Levels {
+  title: String;
+  body: String;
+  category: String;
+  categorynumber: Number;
+  guropsnumber: Number;
+  // user_token: String;
 }
 
 export interface GetLevels {

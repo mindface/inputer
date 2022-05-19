@@ -1,4 +1,4 @@
-import { Action } from 'redux'
+import { Action } from "redux";
 
 export interface ModalAction extends Action {
   type: string;
@@ -13,40 +13,43 @@ export interface ModalActionFailure extends Action {
   id: string;
 }
 
-export function initalCardState():any  {
+export function initalCardState(): any {
   return {
     modalView: false,
     viewId: 0,
     selectId: 1,
     isFetching: false,
-    isloading: false
-  }
+    isloading: false,
+  };
 }
 
-export function modalReducer(state:any = initalCardState(), action:ModalAction) {
+export function modalReducer(
+  state: any = initalCardState(),
+  action: ModalAction
+) {
   switch (action.type) {
-    case 'modal/open':
-      return {
-       ...state,
-         modalView: true,
-         viewId: action.viewId
-       }
-    case 'modal/close':
+    case "modal/open":
       return {
         ...state,
-        modalView: false
-        }
-     case 'modal/dataget':
+        modalView: true,
+        viewId: action.viewId,
+      };
+    case "modal/close":
       return {
         ...state,
-          isFetching: false,
-        }
-    case 'modal/selectId':
+        modalView: false,
+      };
+    case "modal/dataget":
       return {
         ...state,
-         selectId: action.selectId,
-        }
-      default:
-        return state
-    }
+        isFetching: false,
+      };
+    case "modal/selectId":
+      return {
+        ...state,
+        selectId: action.selectId,
+      };
+    default:
+      return state;
+  }
 }

@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-function Footer(){
+function Footer() {
   return (
-   <footer className="footer">
-     <div className="footer__inner">
-       <small className="copyright">&copy; setFlowr</small>
-     </div>
-   </footer>
-  )
+    <footer className="footer">
+      <div className="footer__inner">
+        <small className="copyright">&copy; setFlowr</small>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;

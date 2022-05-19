@@ -7,7 +7,6 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-
   // if ("/think") {
   //   return (
   //     <>
@@ -20,9 +19,9 @@ const Layout = ({ children }: Props) => {
 
   return (
     <>
-    <Header />
-    <div className="wrapper">{children}</div>
-    <Footer />
+      <Header />
+      <div className="wrapper">{children}</div>
+      <Footer />
     </>
   );
 };

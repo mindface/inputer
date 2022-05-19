@@ -1,12 +1,27 @@
+import { Action, Dispatch, AnyAction } from "redux";
+import {
+  Card01,
+  Card02,
+  Card03,
+  Card04,
+  Card05,
+  Card06,
+  AnalyData,
+} from "../../../models/analy";
+import {
+  reCard01,
+  reCard02,
+  reCard03,
+  reCard04,
+  reCard05,
+  reCard06,
+  setAnalyData,
+} from "./analySetData";
 
-import { Action, Dispatch, AnyAction } from 'redux'
-import { Card01, Card02, Card03, Card04, Card05, Card06, AnalyData } from '../../../models/analy'
-import { reCard01, reCard02, reCard03 , reCard04, reCard05, reCard06, setAnalyData } from "./analySetData";
-
-export const FETCH_ANALY_DATA_REQUEST = 'FETCH_ANALY_DATA_REQUEST'
-export const FETCH_ANALY_DATA_SUCCESS = 'FETCH_ANALY_DATA_SUCCESS'
-export const FETCH_ANALY_SUCCESS = 'FETCH_ANALY_SUCCESS'
-export const FETCH_ANALY_DATA_FAILURE = 'FETCH_ANALY_DATA_FAILURE'
+export const FETCH_ANALY_DATA_REQUEST = "FETCH_ANALY_DATA_REQUEST";
+export const FETCH_ANALY_DATA_SUCCESS = "FETCH_ANALY_DATA_SUCCESS";
+export const FETCH_ANALY_SUCCESS = "FETCH_ANALY_SUCCESS";
+export const FETCH_ANALY_DATA_FAILURE = "FETCH_ANALY_DATA_FAILURE";
 
 export interface analyState {
   card01: Card01;
@@ -19,7 +34,7 @@ export interface analyState {
   setAnaly: AnalyData;
 }
 
-export function initalAnalyState():analyState  {
+export function initalAnalyState(): analyState {
   return {
     card01: reCard01,
     card02: reCard02,
@@ -28,8 +43,8 @@ export function initalAnalyState():analyState  {
     card05: reCard05,
     card06: reCard06,
     setAnalies: setAnalyData,
-    setAnaly: setAnalyData[0]
-  }
+    setAnaly: setAnalyData[0],
+  };
 }
 
 export interface AnalyAction extends Action {
@@ -53,269 +68,276 @@ export interface FetchAnalyAction extends Action {
 
 export interface PostActionFailure extends Action {
   type: string;
-  err: string
+  err: string;
 }
 
-export function analyReducer(state:analyState = initalAnalyState(), action:AnalyAction) {
+export function analyReducer(
+  state: analyState = initalAnalyState(),
+  action: AnalyAction
+) {
   switch (action.type) {
     case FETCH_ANALY_DATA_REQUEST:
-        return {
-          ...state,
-            isFetching: true,
-            card01: reCard01,
-          }
-      case FETCH_ANALY_DATA_SUCCESS:
-       return {
-           ...state,
-             isFetching: false,
-             setAnalies: action['setAnalies'],
-            }
-      case FETCH_ANALY_SUCCESS:
-        return {
-            ...state,
-              isFetching: false,
-              setAnaly: action['setAnaly'],
-              }
-      case FETCH_ANALY_DATA_FAILURE:
-        return {
-          ...state,
-            isFetching: false,
-            card01: reCard01,
-          }
-      case "CARD01":
-        return {
-            ...state,
-              isFetching: false,
-              card01: action['card01'],
-            }
-      case "CARD02":
-        return {
-            ...state,
-              isFetching: false,
-              card02: action['card02'],
-            }
-      case "CARD03":
-        return {
-            ...state,
-              isFetching: false,
-              card03: action['card03'],
-            }
-      case "CARD04":
-        return {
-            ...state,
-              isFetching: false,
-              card04: action['card04'],
-            }
-      case "CARD05":
-        return {
-            ...state,
-              isFetching: false,
-              card05: action['card05'],
-            }
-      case "CARD06":
-        return {
-            ...state,
-              isFetching: false,
-              card06: action['card06'],
-            }
+      return {
+        ...state,
+        isFetching: true,
+        card01: reCard01,
+      };
+    case FETCH_ANALY_DATA_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        setAnalies: action["setAnalies"],
+      };
+    case FETCH_ANALY_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        setAnaly: action["setAnaly"],
+      };
+    case FETCH_ANALY_DATA_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        card01: reCard01,
+      };
+    case "CARD01":
+      return {
+        ...state,
+        isFetching: false,
+        card01: action["card01"],
+      };
+    case "CARD02":
+      return {
+        ...state,
+        isFetching: false,
+        card02: action["card02"],
+      };
+    case "CARD03":
+      return {
+        ...state,
+        isFetching: false,
+        card03: action["card03"],
+      };
+    case "CARD04":
+      return {
+        ...state,
+        isFetching: false,
+        card04: action["card04"],
+      };
+    case "CARD05":
+      return {
+        ...state,
+        isFetching: false,
+        card05: action["card05"],
+      };
+    case "CARD06":
+      return {
+        ...state,
+        isFetching: false,
+        card06: action["card06"],
+      };
     default:
-      return state
+      return state;
   }
 }
 
-
-export const analyFetchDataRequest = (): FetchAnalyAction  => {
-   return {
-      type: FETCH_ANALY_DATA_REQUEST,
-      card01: reCard01,
-   }
-}
-
-export const analyFetchDataSuccess = (data:AnalyData[]) :FetchAnalyAction  => {
- return {
-    type: FETCH_ANALY_DATA_SUCCESS,
-    setAnalies: data
-  }
-}
-
-export const analyFetchSuccess = (data:AnalyData) :FetchAnalyAction  => {
+export const analyFetchDataRequest = (): FetchAnalyAction => {
   return {
-     type: FETCH_ANALY_SUCCESS,
-     setAnaly: data
-   }
- }
+    type: FETCH_ANALY_DATA_REQUEST,
+    card01: reCard01,
+  };
+};
 
-export const analyFetchDataFailure = (err: string) : PostActionFailure => {
+export const analyFetchDataSuccess = (data: AnalyData[]): FetchAnalyAction => {
+  return {
+    type: FETCH_ANALY_DATA_SUCCESS,
+    setAnalies: data,
+  };
+};
+
+export const analyFetchSuccess = (data: AnalyData): FetchAnalyAction => {
+  return {
+    type: FETCH_ANALY_SUCCESS,
+    setAnaly: data,
+  };
+};
+
+export const analyFetchDataFailure = (err: string): PostActionFailure => {
   return {
     type: FETCH_ANALY_DATA_FAILURE,
-    err: err
-  }
-}
+    err: err,
+  };
+};
 
-export const AddAnalyData = () => {    
-  return (dispatch:Dispatch<AnyAction>, getState:() => {base:{analy:analyState}}) => {
-    return new Promise<void>( async (resolve,eject) => {
-      dispatch(analyFetchDataRequest())
+export const AddAnalyData = () => {
+  return (
+    dispatch: Dispatch<AnyAction>,
+    getState: () => { base: { analy: analyState } }
+  ) => {
+    return new Promise<void>(async (resolve, eject) => {
+      dispatch(analyFetchDataRequest());
       const analy = getState().base.analy;
       const setAnaly = {
-        card01_category:analy.card01.category,
-        card01_value_s1:analy.card01.valueS1,
-        card01_value1:String(analy.card01.value1),
-        card01_value2:String(analy.card01.value2),
-        card01_value3:String(analy.card01.value3),
+        card01_category: analy.card01.category,
+        card01_value_s1: analy.card01.valueS1,
+        card01_value1: String(analy.card01.value1),
+        card01_value2: String(analy.card01.value2),
+        card01_value3: String(analy.card01.value3),
 
-        card02_ability1:analy.card02.ability1,
-        card02_value1:analy.card02.value1,
-        card02_value2:String(analy.card02.value2),
+        card02_ability1: analy.card02.ability1,
+        card02_value1: analy.card02.value1,
+        card02_value2: String(analy.card02.value2),
 
-        card03_category:analy.card03.category,
-        card03_value1:analy.card03.value1,
-        card03_value2:analy.card03.value2,
-        card03_value3:analy.card03.value3,
+        card03_category: analy.card03.category,
+        card03_value1: analy.card03.value1,
+        card03_value2: analy.card03.value2,
+        card03_value3: analy.card03.value3,
 
-        card04_category:analy.card04.category,
-        card04_value1:analy.card04.value1,
-        card04_value2:analy.card04.value2,
-        card04_value3:analy.card04.value3,
+        card04_category: analy.card04.category,
+        card04_value1: analy.card04.value1,
+        card04_value2: analy.card04.value2,
+        card04_value3: analy.card04.value3,
 
-        card05_value1:analy.card05.value1,
-        card05_value2:analy.card05.value2,
-        card05_value3:analy.card05.value3,
+        card05_value1: analy.card05.value1,
+        card05_value2: analy.card05.value2,
+        card05_value3: analy.card05.value3,
 
-        card06_value1:analy.card06.value1,
-        card06_value2:analy.card06.value2,
-      }
-      console.log(setAnaly)
-      const params:object = {
-        method: 'POST',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        card06_value1: analy.card06.value1,
+        card06_value2: analy.card06.value2,
+      };
+      console.log(setAnaly);
+      const params: object = {
+        method: "POST",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({analy:setAnaly})
-      }
-      try {
-         const res = await fetch("http://localhost:3001/api/v1/analy", params);
-         res.json().then((res) => {
-          // console.log(res)
-          dispatch<any>(getAnalyData())
-          resolve();
-         })
-      }
-      catch (err) {
-        eject();
-        console.log(err)
-        //  return dispatch(postFetchDataFailure(err))
-      }
-    })
-  }
-}
-
-export const UpdateAnalyData = (sendData:AnalyData) => {
-  return async (dispatch:Dispatch<AnyAction>) => {
-      dispatch(analyFetchDataRequest())
-      console.log(sendData)
-      const params:object = {
-        method: 'PATCH',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({analy:sendData,id:sendData.id}) 
-      }
+        body: JSON.stringify({ analy: setAnaly }),
+      };
       try {
         const res = await fetch("http://localhost:3001/api/v1/analy", params);
         res.json().then((res) => {
-          console.log(res)
-          dispatch<any>(getAnalyData())
-        })
-      }
-      catch (err) {
-        console.log(err)
+          // console.log(res)
+          dispatch<any>(getAnalyData());
+          resolve();
+        });
+      } catch (err) {
+        eject();
+        console.log(err);
         //  return dispatch(postFetchDataFailure(err))
       }
-  }
-}
+    });
+  };
+};
 
-export const deleteAnalyData = (id:number) => {
-  return async (dispatch:Dispatch) => {
-    dispatch(analyFetchDataRequest())
-    const params:object = {
-      method: 'DELETE',
-      cache: 'no-cache',
-      credentials: 'same-origin',
+export const UpdateAnalyData = (sendData: AnalyData) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(analyFetchDataRequest());
+    console.log(sendData);
+    const params: object = {
+      method: "PATCH",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({id:id})
-    }
+      body: JSON.stringify({ analy: sendData, id: sendData.id }),
+    };
     try {
-       const res = await fetch(`http://localhost:3001/api/v1/analy`,params);
-       res.json().then((res) => {
-        dispatch<any>(getAnalyData())
-       })
-    }
-    catch (err) {
-      console.log(err)
+      const res = await fetch("http://localhost:3001/api/v1/analy", params);
+      res.json().then((res) => {
+        console.log(res);
+        dispatch<any>(getAnalyData());
+      });
+    } catch (err) {
+      console.log(err);
       //  return dispatch(postFetchDataFailure(err))
     }
-  }
-}
+  };
+};
+
+export const deleteAnalyData = (id: number) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(analyFetchDataRequest());
+    const params: object = {
+      method: "DELETE",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    };
+    try {
+      const res = await fetch(`http://localhost:3001/api/v1/analy`, params);
+      res.json().then((res) => {
+        dispatch<any>(getAnalyData());
+      });
+    } catch (err) {
+      console.log(err);
+      //  return dispatch(postFetchDataFailure(err))
+    }
+  };
+};
 
 export const getAnalyData = () => {
-  return async (dispatch: Dispatch)  => {
-    dispatch(analyFetchDataRequest())
-    const params:object = {
-      method: 'GET',
+  return async (dispatch: Dispatch) => {
+    dispatch(analyFetchDataRequest());
+    const params: object = {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-    }
+    };
     try {
-      const res = await fetch(`http://localhost:3001/api/v1/analy/index`,params);
+      const res = await fetch(
+        `http://localhost:3001/api/v1/analy/index`,
+        params
+      );
       res.json().then((res) => {
-        const data = res.map((item:any) => {
-          const card01_value1 = item.card01_value1.split(',');
-          const card01_value2 = item.card01_value2.split(',');
-          const card01_value3 = item.card01_value3.split(',');
-          const card02_value2 = item.card02_value2.split(',');
-          return {...item,
-            card01_value1: [Number(card01_value1[0]),Number(card01_value1[1])],
-            card01_value2: [Number(card01_value2[0]),Number(card01_value2[1])],
-            card01_value3: [Number(card01_value3[0]),Number(card01_value3[1])],
-            card02_value2: [Number(card02_value2[0]),Number(card02_value2[1])],
-          }
-        })
-       dispatch<any>(analyFetchDataSuccess(data))
-      })
-   }
-   catch (err) {
-     console.log(err)
-     //  return dispatch(postFetchDataFailure(err))
-   }
-  }
-}
+        const data = res.map((item: any) => {
+          const card01_value1 = item.card01_value1.split(",");
+          const card01_value2 = item.card01_value2.split(",");
+          const card01_value3 = item.card01_value3.split(",");
+          const card02_value2 = item.card02_value2.split(",");
+          return {
+            ...item,
+            card01_value1: [Number(card01_value1[0]), Number(card01_value1[1])],
+            card01_value2: [Number(card01_value2[0]), Number(card01_value2[1])],
+            card01_value3: [Number(card01_value3[0]), Number(card01_value3[1])],
+            card02_value2: [Number(card02_value2[0]), Number(card02_value2[1])],
+          };
+        });
+        dispatch<any>(analyFetchDataSuccess(data));
+      });
+    } catch (err) {
+      console.log(err);
+      //  return dispatch(postFetchDataFailure(err))
+    }
+  };
+};
 
 export const getAnaly = () => {
-  return async (dispatch: Dispatch)  => {
-    dispatch(analyFetchDataRequest())
-    const params:object = {
-      method: 'GET',
+  return async (dispatch: Dispatch) => {
+    dispatch(analyFetchDataRequest());
+    const params: object = {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-    }
+    };
     try {
-      const res = await fetch(`http://localhost:3001/api/v1/analy/index`,params);
+      const res = await fetch(
+        `http://localhost:3001/api/v1/analy/index`,
+        params
+      );
       res.json().then((res) => {
-       dispatch<any>(analyFetchSuccess(res))
-      })
-   }
-   catch (err) {
-     console.log(err)
-     //  return dispatch(postFetchDataFailure(err))
-   }
-  }
-}
+        dispatch<any>(analyFetchSuccess(res));
+      });
+    } catch (err) {
+      console.log(err);
+      //  return dispatch(postFetchDataFailure(err))
+    }
+  };
+};

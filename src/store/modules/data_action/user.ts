@@ -1,26 +1,25 @@
-
-import { Action } from 'redux'
+import { Action } from "redux";
 import { FetchApi } from "../../../lib/fetch-api";
-import { User, GetUser, GetFetchUser } from '../../../models/users'
+import { User, GetUser, GetFetchUser } from "../../../models/users";
 import { AppDispatch } from "../../index";
 
-export const FETCH_USER_DATA_REQUEST = 'FETCH_USER_DATA_REQUEST'
-export const FETCH_USER_DATA_SUCCESS = 'FETCH_USER_DATA_SUCCESS'
-export const FETCH_USERS_DATA_SUCCESS = 'FETCH_USERS_DATA_SUCCESS'
-export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE'
+export const FETCH_USER_DATA_REQUEST = "FETCH_USER_DATA_REQUEST";
+export const FETCH_USER_DATA_SUCCESS = "FETCH_USER_DATA_SUCCESS";
+export const FETCH_USERS_DATA_SUCCESS = "FETCH_USERS_DATA_SUCCESS";
+export const FETCH_USER_DATA_FAILURE = "FETCH_USER_DATA_FAILURE";
 
 export const fetchApi = new FetchApi();
 
 export interface UserState {
-  users: User[],
-  user: GetUser,
+  users: User[];
+  user: GetUser;
 }
 
-export function initalUserState():UserState  {
+export function initalUserState(): UserState {
   return {
     users: [],
-    user: {id:0, name: "", email:""},
-  }
+    user: { id: 0, name: "", email: "" },
+  };
 }
 
 export interface UsersAction extends Action {
@@ -41,95 +40,107 @@ export interface UserActionReducer extends Action {
 
 export interface UserActionFailure extends Action {
   type: string;
-  err: string
+  err: string;
 }
 
-export function userReducer(state:UserState = initalUserState(), action:UserActionReducer) {
+export function userReducer(
+  state: UserState = initalUserState(),
+  action: UserActionReducer
+) {
   switch (action.type) {
     case FETCH_USER_DATA_REQUEST:
-        return {
-          ...state,
-            users: []
-          }
-      case FETCH_USERS_DATA_SUCCESS:
-       return {
-           ...state,
-             users: action['users']
-           }
-      case FETCH_USER_DATA_SUCCESS:
       return {
-          ...state,
-            user: action['user']
-          }
-       case FETCH_USER_DATA_FAILURE:
-        return {
-          ...state,
-            users: []
-          }
+        ...state,
+        users: [],
+      };
+    case FETCH_USERS_DATA_SUCCESS:
+      return {
+        ...state,
+        users: action["users"],
+      };
+    case FETCH_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        user: action["user"],
+      };
+    case FETCH_USER_DATA_FAILURE:
+      return {
+        ...state,
+        users: [],
+      };
     default:
-      return state
+      return state;
   }
 }
 
+export const userFetchDataRequest = (): UsersAction => {
+  return {
+    type: FETCH_USER_DATA_REQUEST,
+    users: [],
+  };
+};
 
-export const userFetchDataRequest = (): UsersAction  => {
-   return {
-      type: FETCH_USER_DATA_REQUEST,
-      users: [],
-   }
-}
-
-export const usersFetchDataSuccess = (data: User[]) :UsersAction  => {
- return {
+export const usersFetchDataSuccess = (data: User[]): UsersAction => {
+  return {
     type: FETCH_USERS_DATA_SUCCESS,
     users: data,
-  }
-}
+  };
+};
 
-export const userFetchDataSuccess = (data: GetUser) :UserAction  => {
-  console.log(data)
+export const userFetchDataSuccess = (data: GetUser): UserAction => {
+  console.log(data);
   return {
-     type: FETCH_USER_DATA_SUCCESS,
-     user: data,
-   }
- }
+    type: FETCH_USER_DATA_SUCCESS,
+    user: data,
+  };
+};
 
-export const userFetchDataFailure = (err: string) : UserActionFailure => {
+export const userFetchDataFailure = (err: string): UserActionFailure => {
   return {
     type: FETCH_USER_DATA_FAILURE,
-    err: err
-  }
-}
+    err: err,
+  };
+};
 
-export const getUserData = (token:string) => {
-  return async (dispatch:AppDispatch) => {
+export const getUserData = (token: string) => {
+  return async (dispatch: AppDispatch) => {
     try {
-      const res = await fetchApi.GetFetch<{user:GetFetchUser}>("http://localhost:3001/api/show_user", token);
+      const res = await fetchApi.GetFetch<{ user: GetFetchUser }>(
+        "http://localhost:3001/api/show_user",
+        token
+      );
       const user = await res.user;
-      dispatch(userFetchDataSuccess({id:user.id,email:user.email,name: user.name}))
-    }
-    catch (err) {
-      console.log(err)
+      dispatch(
+        userFetchDataSuccess({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        })
+      );
+    } catch (err) {
+      console.log(err);
       //  return dispatch(postFetchDataFailure(err))
     }
-  }
-}
+  };
+};
 
 // curl -i -X POST -H "Content-Type: application/json" -d '{"email":"test@dddd.com", "password":"dddd123"}' localhost:3001/api/sign_in
-export const loginData = (sendData:User) => {
-    return async (dispatch:AppDispatch) => {
-      dispatch(userFetchDataRequest())
-      try {
-        const res = await fetchApi.PostFetch<{email:string,password:string}>("http://localhost:3001/api/sign_in", sendData);
-        localStorage.setItem('token', res.token);
-        dispatch(getUserData(res.token));
-      }
-      catch (err) {
-        console.log(err)
-        //  return dispatch(postFetchDataFailure(err))
-      }
-  }
-}
+export const loginData = (sendData: User) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(userFetchDataRequest());
+    try {
+      const res = await fetchApi.PostFetch<{ email: string; password: string }>(
+        "http://localhost:3001/api/sign_in",
+        sendData
+      );
+      localStorage.setItem("token", res.token);
+      dispatch(getUserData(res.token));
+    } catch (err) {
+      console.log(err);
+      //  return dispatch(postFetchDataFailure(err))
+    }
+  };
+};
 
 // ユーザーの追加機能のケースのみ
 // export const AddUserData = (sendData:User) => {
@@ -143,7 +154,7 @@ export const loginData = (sendData:User) => {
 //         headers: {
 //           'Content-Type': 'application/json'
 //         },
-//         body: JSON.stringify({post:sendData}) 
+//         body: JSON.stringify({post:sendData})
 //       }
 //       try {
 //          const res = await fetch("http://localhost:3001/api/v1/posts", params);
@@ -164,7 +175,7 @@ export const loginData = (sendData:User) => {
 
 // export const UpdateUserData = (sendData:User) => {
 //   return  (dispatch:Dispatch<AnyAction>) => {
-//     return new Promise<void>( async (resolve,eject) => {  
+//     return new Promise<void>( async (resolve,eject) => {
 //       dispatch(postFetchDataRequest())
 //       console.log(sendData)
 //       const params:object = {
@@ -174,7 +185,7 @@ export const loginData = (sendData:User) => {
 //         headers: {
 //           'Content-Type': 'application/json'
 //         },
-//         body: JSON.stringify({post:sendData,id:sendData.id}) 
+//         body: JSON.stringify({post:sendData,id:sendData.id})
 //       }
 //       try {
 //         const res = await fetch("http://localhost:3001/api/v1/posts", params);
