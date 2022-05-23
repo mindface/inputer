@@ -18,8 +18,8 @@ import { AddPostData, UpdatePostData } from "../store/modules/data_action/post";
 export type PropsSet = {
   dialogAction: (post: Posts) => void;
 };
-
-const PartDialog = forwardRef<PropsSet>((props, ref) => {
+// eslint-disable-next-line react/display-name
+export const PartDialog = forwardRef<PropsSet>((props, ref) => {
   const dispatch: AppDispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [title, titleSet] = useState("");
@@ -151,5 +151,3 @@ const PartDialog = forwardRef<PropsSet>((props, ref) => {
     </div>
   );
 });
-
-export default PartDialog;

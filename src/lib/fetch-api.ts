@@ -1,12 +1,12 @@
 export class FetchApi {
   public GetFetch<T>(path: string, token?: string): Promise<never | T> {
-    let headers: { "Content-Type": string; Authorization?: string } = {
+    const headers: { "Content-Type": string; Authorization?: string } = {
       "Content-Type": "application/json",
     };
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-    let params = {
+    const params = {
       method: "GET",
       headers: headers,
     };

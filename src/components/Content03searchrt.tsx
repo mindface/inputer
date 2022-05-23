@@ -84,8 +84,6 @@ function Content03searchrt(props: propsSet) {
     return list;
   };
 
-  useEffect(() => {}, [selectJsonNumber]);
-
   // useEffect(() => {
   //   console.log(props.analyData)
   // },[props.analyData])

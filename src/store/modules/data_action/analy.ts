@@ -174,7 +174,7 @@ export const AddAnalyData = () => {
     dispatch: Dispatch<AnyAction>,
     getState: () => { base: { analy: analyState } }
   ) => {
-    return new Promise<void>(async (resolve, eject) => {
+    return new Promise<void>((resolve, eject) => {
       dispatch(analyFetchDataRequest());
       const analy = getState().base.analy;
       const setAnaly = {
@@ -216,12 +216,12 @@ export const AddAnalyData = () => {
         body: JSON.stringify({ analy: setAnaly }),
       };
       try {
-        const res = await fetch("http://localhost:3001/api/v1/analy", params);
-        res.json().then((res) => {
-          // console.log(res)
-          dispatch<any>(getAnalyData());
-          resolve();
-        });
+        fetch("http://localhost:3001/api/v1/analy", params).then((res) =>
+          res.json().then((res) => {
+            dispatch<any>(getAnalyData());
+            resolve();
+          })
+        );
       } catch (err) {
         eject();
         console.log(err);
@@ -258,7 +258,7 @@ export const UpdateAnalyData = (sendData: AnalyData) => {
 };
 
 export const deleteAnalyData = (id: number) => {
-  return async (dispatch: Dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(analyFetchDataRequest());
     const params: object = {
       method: "DELETE",
@@ -270,10 +270,11 @@ export const deleteAnalyData = (id: number) => {
       body: JSON.stringify({ id: id }),
     };
     try {
-      const res = await fetch(`http://localhost:3001/api/v1/analy`, params);
-      res.json().then((res) => {
-        dispatch<any>(getAnalyData());
-      });
+      fetch(`http://localhost:3001/api/v1/analy`, params).then((res) =>
+        res.json().then((res) => {
+          dispatch<any>(getAnalyData());
+        })
+      );
     } catch (err) {
       console.log(err);
       //  return dispatch(postFetchDataFailure(err))

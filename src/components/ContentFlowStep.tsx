@@ -31,10 +31,12 @@ function ContentFlowStep(props: propsSet) {
   useEffect(() => {
     if (props.phase === 0) setInfo(flowStep01[props.viewnumber]);
     if (props.phase === 1) setInfo(flowStep02[props.viewnumber]);
-    if (props.phase === 2 || props.phase === 3 || props.phase === 4)
+    if (props.phase === 2 || props.phase === 3 || props.phase === 4) {
       setInfo(flowStep03[props.viewnumber]);
-    if (props.phase === 5 || props.phase === 6 || props.phase === 8)
+    }
+    if (props.phase === 5 || props.phase === 6 || props.phase === 7) {
       setInfo(flowStep04[props.viewnumber]);
+    }
   }, [props.viewnumber, props.phase]);
 
   return (
