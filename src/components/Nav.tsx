@@ -19,6 +19,11 @@ function Nav() {
           info
         </Link>
       </p>
+      <p>
+        <Link className="link" to="/dictio">
+          dictio
+        </Link>
+      </p>
     </div>
   );
 }

@@ -17,6 +17,7 @@ function Header() {
     { id: "/", label: "home" },
     { id: "/about", label: "about" },
     { id: "/info", label: "info" },
+    { id: "/dictio", label: "dictio" },
   ];
   const navigate = useNavigate();
   const [state, setState] = React.useState(false);

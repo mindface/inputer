@@ -91,11 +91,12 @@ function ContentInfo02(props: PropsSet) {
               id="outlined-multiline-flexible"
               label="詳細の説明"
               multiline
-              maxRows={4}
+              rows={4}
               value={sub}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 handleChange(e, "sub");
               }}
+              variant="standard"
             />
           </FormControl>
         </Box>

@@ -10,11 +10,7 @@ export class FetchApi {
       method: "GET",
       headers: headers,
     };
-    return fetch(path, params)
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log("err | ", err);
-      });
+    return fetch(path, params).then((res) => res.json());
   }
 
   public PostFetch<T>(path: string, data: T) {
@@ -49,14 +45,15 @@ export class FetchApi {
       });
   }
 
-  public DeleteFetch(path: string) {
+  public DeleteFetch(path: string, id: number) {
     return fetch(path, {
       method: "DELETE",
-      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "same-origin",
+      body: JSON.stringify({ id: id }),
     })
       .then((res) => res.json())
       .catch((err) => {

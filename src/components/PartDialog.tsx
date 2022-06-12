@@ -1,4 +1,10 @@
-import React, { useState, useImperativeHandle, forwardRef } from "react";
+import React, {
+  useState,
+  useImperativeHandle,
+  forwardRef,
+  useEffect,
+  useRef,
+} from "react";
 import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -15,6 +21,31 @@ import TextField from "@mui/material/TextField";
 import { AppDispatch } from "../store/index";
 import { AddPostData, UpdatePostData } from "../store/modules/data_action/post";
 
+import { useQuill } from "react-quilljs";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw } from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike"],
+    ["blockquote", "code-block"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ align: [] }],
+    ["clean"],
+    ["link", "image"],
+  ],
+};
+
 export type PropsSet = {
   dialogAction: (post: Posts) => void;
 };
@@ -27,6 +58,7 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
   const [sub, subSet] = useState("");
   const [accout, accoutSet] = useState("");
   const theme = useTheme();
+  const [value, setValue] = useState("");
   const [viewItem, setViewItem] = useState<Posts>({
     id: 0,
     title: "",
@@ -34,10 +66,11 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
     sub: "",
     accout: "",
   });
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const editor = useRef<any>(null);
+  const { quill, quillRef } = useQuill();
 
-  const handleClickOpen = (id: number) => {
-    setOpen(true);
+  const handleEditerOpen = (e: any) => {
+    console.log(";;;;;;;;;;;;;");
   };
 
   const handleClose = () => {
@@ -70,19 +103,19 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
   return (
     <div className="dialog-box">
       <Dialog
-        fullScreen={fullScreen}
+        fullScreen={true}
         open={open}
         onClose={handleClose}
         aria-labelledby="sresponsive-dialog-title"
+        sx={{ m: 4 }}
       >
         <DialogTitle id="sresponsive-dialog-title">編集モーダル</DialogTitle>
-        <DialogContent sx={{ minWidth: 275, maxWidth: 320, m: 2 }}>
+        <DialogContent sx={{ maxWidth: "lg", width: "100%", m: 2 }}>
           <Box sx={{ minWidth: 220, p: 2 }}>
-            <p className="caption">title</p>
             <FormControl fullWidth>
               <TextField
                 id="outlined-multiline-flexible"
-                label="title"
+                label="タイトル"
                 multiline
                 maxRows={4}
                 value={title}
@@ -93,13 +126,12 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
             </FormControl>
           </Box>
           <Box sx={{ minWidth: 120, p: 2 }}>
-            <p className="caption">body</p>
             <FormControl fullWidth>
               <TextField
                 id="outlined-multiline-flexible"
-                label="body"
+                label="詳細"
                 multiline
-                rows={4}
+                rows={8}
                 value={body}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   bodySet(e.target.value);
@@ -109,11 +141,10 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
             </FormControl>
           </Box>
           <Box sx={{ minWidth: 120, p: 2 }}>
-            <p className="caption">sub</p>
             <FormControl fullWidth>
               <TextField
                 id="outlined-multiline-flexible"
-                label="sub"
+                label="補足"
                 multiline
                 maxRows={4}
                 value={sub}
@@ -124,7 +155,6 @@ export const PartDialog = forwardRef<PropsSet>((props, ref) => {
             </FormControl>
           </Box>
           <Box sx={{ minWidth: 120, p: 2 }}>
-            <p className="caption">accout</p>
             <FormControl fullWidth>
               <TextField
                 id="outlined-multiline-flexible"

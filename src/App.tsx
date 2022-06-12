@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Info from "./pages/Info";
+import Dictio from "./pages/Dictio";
 import Login from "./pages/Login";
 import Layout from "./layout/index";
 import { RootStore } from "./store/modules/reducer";
@@ -32,7 +33,6 @@ function App() {
         <Route path="/" element={user.id !== 0 ?<Layout><Home /></Layout>:<Navigate to="/login" replace />} />
         <Route path="/about" element={user.id !== 0 ?<Layout><About /></Layout>:<Navigate to="/login" replace />} />
         <Route path="/info" element={user.id !== 0 ?<Layout><Info /></Layout>:<Navigate to="/login" replace />} /> */}
-
         <Route
           path="/login"
           element={
@@ -70,6 +70,14 @@ function App() {
           element={
             <Layout>
               <Info />
+            </Layout>
+          }
+        />
+        <Route
+          path="/dictio"
+          element={
+            <Layout>
+              <Dictio />
             </Layout>
           }
         />

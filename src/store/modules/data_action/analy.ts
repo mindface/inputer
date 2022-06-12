@@ -7,6 +7,7 @@ import {
   Card05,
   Card06,
   AnalyData,
+  SendAnalyData,
 } from "../../../models/analy";
 import {
   reCard01,
@@ -17,6 +18,7 @@ import {
   reCard06,
   setAnalyData,
 } from "./analySetData";
+import { FetchApi } from "../../../lib/fetch-api";
 
 export const FETCH_ANALY_DATA_REQUEST = "FETCH_ANALY_DATA_REQUEST";
 export const FETCH_ANALY_DATA_SUCCESS = "FETCH_ANALY_DATA_SUCCESS";
@@ -33,6 +35,8 @@ export interface analyState {
   setAnalies: AnalyData[];
   setAnaly: AnalyData;
 }
+
+const fetchApi = new FetchApi();
 
 export function initalAnalyState(): analyState {
   return {
@@ -205,25 +209,18 @@ export const AddAnalyData = () => {
         card06_value1: analy.card06.value1,
         card06_value2: analy.card06.value2,
       };
-      console.log(setAnaly);
-      const params: object = {
-        method: "POST",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ analy: setAnaly }),
-      };
       try {
-        fetch("http://localhost:3001/api/v1/analy", params).then((res) =>
-          res.json().then((res) => {
+        fetchApi
+          .PostFetch<{ analy: SendAnalyData }>(
+            `http://localhost:3001/api/v1/analy`,
+            {
+              analy: setAnaly,
+            }
+          )
+          .then((data) => {
             dispatch<any>(getAnalyData());
-            resolve();
-          })
-        );
+          });
       } catch (err) {
-        eject();
         console.log(err);
         //  return dispatch(postFetchDataFailure(err))
       }
@@ -234,22 +231,16 @@ export const AddAnalyData = () => {
 export const UpdateAnalyData = (sendData: AnalyData) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(analyFetchDataRequest());
-    console.log(sendData);
-    const params: object = {
-      method: "PATCH",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ analy: sendData, id: sendData.id }),
-    };
     try {
-      const res = await fetch("http://localhost:3001/api/v1/analy", params);
-      res.json().then((res) => {
-        console.log(res);
-        dispatch<any>(getAnalyData());
-      });
+      fetchApi
+        .PutFetch<{ analy: AnalyData; id?: number }>(
+          `http://localhost:3001/api/v1/analy`,
+          { analy: sendData, id: sendData.id }
+        )
+        .then((data) => {
+          console.log(data);
+          dispatch<any>(getAnalyData());
+        });
     } catch (err) {
       console.log(err);
       //  return dispatch(postFetchDataFailure(err))
@@ -260,21 +251,12 @@ export const UpdateAnalyData = (sendData: AnalyData) => {
 export const deleteAnalyData = (id: number) => {
   return (dispatch: Dispatch) => {
     dispatch(analyFetchDataRequest());
-    const params: object = {
-      method: "DELETE",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id }),
-    };
     try {
-      fetch(`http://localhost:3001/api/v1/analy`, params).then((res) =>
-        res.json().then((res) => {
+      fetchApi
+        .DeleteFetch(`http://localhost:3001/api/v1/analy`, id)
+        .then((data) => {
           dispatch<any>(getAnalyData());
-        })
-      );
+        });
     } catch (err) {
       console.log(err);
       //  return dispatch(postFetchDataFailure(err))
@@ -285,33 +267,37 @@ export const deleteAnalyData = (id: number) => {
 export const getAnalyData = () => {
   return async (dispatch: Dispatch) => {
     dispatch(analyFetchDataRequest());
-    const params: object = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
-      const res = await fetch(
-        `http://localhost:3001/api/v1/analy/index`,
-        params
-      );
-      res.json().then((res) => {
-        const data = res.map((item: any) => {
-          const card01_value1 = item.card01_value1.split(",");
-          const card01_value2 = item.card01_value2.split(",");
-          const card01_value3 = item.card01_value3.split(",");
-          const card02_value2 = item.card02_value2.split(",");
-          return {
-            ...item,
-            card01_value1: [Number(card01_value1[0]), Number(card01_value1[1])],
-            card01_value2: [Number(card01_value2[0]), Number(card01_value2[1])],
-            card01_value3: [Number(card01_value3[0]), Number(card01_value3[1])],
-            card02_value2: [Number(card02_value2[0]), Number(card02_value2[1])],
-          };
+      fetchApi
+        .GetFetch<AnalyData[]>(`http://localhost:3001/api/v1/analy/index`)
+        .then((res) => {
+          const data = res.map((item: any) => {
+            const card01_value1 = item.card01_value1.split(",");
+            const card01_value2 = item.card01_value2.split(",");
+            const card01_value3 = item.card01_value3.split(",");
+            const card02_value2 = item.card02_value2.split(",");
+            return {
+              ...item,
+              card01_value1: [
+                Number(card01_value1[0]),
+                Number(card01_value1[1]),
+              ],
+              card01_value2: [
+                Number(card01_value2[0]),
+                Number(card01_value2[1]),
+              ],
+              card01_value3: [
+                Number(card01_value3[0]),
+                Number(card01_value3[1]),
+              ],
+              card02_value2: [
+                Number(card02_value2[0]),
+                Number(card02_value2[1]),
+              ],
+            };
+          });
+          dispatch<any>(analyFetchDataSuccess(data));
         });
-        dispatch<any>(analyFetchDataSuccess(data));
-      });
     } catch (err) {
       console.log(err);
       //  return dispatch(postFetchDataFailure(err))
@@ -322,20 +308,12 @@ export const getAnalyData = () => {
 export const getAnaly = () => {
   return async (dispatch: Dispatch) => {
     dispatch(analyFetchDataRequest());
-    const params: object = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
-      const res = await fetch(
-        `http://localhost:3001/api/v1/analy/index`,
-        params
-      );
-      res.json().then((res) => {
-        dispatch<any>(analyFetchSuccess(res));
-      });
+      fetchApi
+        .GetFetch<AnalyData>(`http://localhost:3001/api/v1/analy/index`)
+        .then((data) => {
+          dispatch<any>(analyFetchSuccess(data));
+        });
     } catch (err) {
       console.log(err);
       //  return dispatch(postFetchDataFailure(err))

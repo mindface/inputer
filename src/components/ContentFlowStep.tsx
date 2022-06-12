@@ -28,6 +28,13 @@ function ContentFlowStep(props: propsSet) {
     disc: "",
   });
 
+  const kkkk = () => {
+    const _num = 0;
+    for (let f = 0; f < 10; f++) {
+      if (_num === f) console.log(f);
+    }
+  };
+
   useEffect(() => {
     if (props.phase === 0) setInfo(flowStep01[props.viewnumber]);
     if (props.phase === 1) setInfo(flowStep02[props.viewnumber]);
@@ -37,6 +44,7 @@ function ContentFlowStep(props: propsSet) {
     if (props.phase === 5 || props.phase === 6 || props.phase === 7) {
       setInfo(flowStep04[props.viewnumber]);
     }
+    kkkk();
   }, [props.viewnumber, props.phase]);
 
   return (
